@@ -4,6 +4,7 @@ import { AuthContext } from '../context/AuthProvider'
 import { makeStyles } from '@mui/styles';
 import { newComment, getComments } from '../service/api';
 import Comment from './Comment';
+import Pusher from 'pusher-js';
 
 const useStyles = makeStyles({
     container: {
@@ -35,6 +36,10 @@ const initialValue = {
     comments: ''
 }
 
+const pusher = new Pusher('83a9269d53efd71b9741', {
+    cluster: 'ap2'
+});
+
 function Comments({ post })
 {
     const { user } = React.useContext(AuthContext);
@@ -65,7 +70,7 @@ function Comments({ post })
         else {
             const data = await newComment(comment);
             setCurrComment('');
-            setToggle(!toggle);
+            // setToggle(!toggle); // uncomment once pusher's limit reaches threshold
         }
     }
 
@@ -79,6 +84,24 @@ function Comments({ post })
     {
         fetchComments();
     }, [post, toggle])
+
+    useEffect(() =>
+    {
+        const channel = pusher.subscribe('comments');
+        channel.bind('newComment', function (change)
+        {
+            fetchComments();
+        })
+        channel.bind('commentDeleted', function (change)
+        {
+            fetchComments();
+        })
+        return () =>
+        {
+            channel.unbind_all();
+            channel.unsubscribe();
+        }
+    }, [])
 
     return (
         <Box>
