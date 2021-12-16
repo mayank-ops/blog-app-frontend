@@ -12,7 +12,7 @@ const useStyles = makeStyles({
         display: 'flex',
         justifyContent: 'center',
         '& > *': {
-            padding: 20
+            padding: 8
         }
     },
     link: {
@@ -36,10 +36,10 @@ function Header()
     return (
         <AppBar>
             <Toolbar className={classes.container}>
-                <Link to={'/'} className={classes.link}><Typography variant="h6">Home</Typography></Link>
-                <Link to={'/about'} className={classes.link}><Typography variant="h6">About</Typography></Link>
-                <Link to={'#'} className={classes.link}><Typography variant="h6" onClick={logoutUser}>Logout </Typography></Link>
-                <Typography variant="h6">Welcome {user.email.split('@')[0]}</Typography>
+                <Link to={'/'} className={classes.link}><Typography variant="body1">Home</Typography></Link>
+                <Link to={'/about'} className={classes.link}><Typography variant="body1">About</Typography></Link>
+                <Link to={'#'} className={classes.link}><Typography variant="body1" onClick={logoutUser}>Logout </Typography></Link>
+                <Typography variant="body1">Welcome {user.email.split('@')[0]}</Typography>
             </Toolbar>
         </AppBar>
     )
