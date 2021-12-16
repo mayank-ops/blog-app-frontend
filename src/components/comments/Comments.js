@@ -77,7 +77,7 @@ function Comments({ post })
     const fetchComments = async () =>
     {
         const data = await getComments(post._id);
-        setComments(data.data);
+        setComments([...data.data]);
     }
 
     useEffect(() =>
@@ -90,6 +90,7 @@ function Comments({ post })
         const channel = pusher.subscribe('comments');
         channel.bind('newComment', function (change)
         {
+            console.log(post._id);
             fetchComments();
         })
         channel.bind('commentDeleted', function (change)
@@ -101,7 +102,7 @@ function Comments({ post })
             channel.unbind_all();
             channel.unsubscribe();
         }
-    }, [])
+    }, [post])
 
     return (
         <Box>
