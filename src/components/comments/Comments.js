@@ -46,7 +46,7 @@ function Comments({ post })
     const [comment, setComment] = useState(initialValue);
     const [comments, setComments] = useState([]);
     const [toggle, setToggle] = useState(false);
-    const url = 'https://static.thenounproject.com/png/12017-200.png';
+    const url = user.photoURL || 'https://static.thenounproject.com/png/12017-200.png';
     const classes = useStyles();
     const currUser = user.email.split('@')[0];
     const [currComment, setCurrComment] = useState('');

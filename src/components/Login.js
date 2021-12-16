@@ -3,6 +3,7 @@ import "./Login.css";
 import Button from '@mui/material/Button';
 import { AuthContext } from '../components/context/AuthProvider';
 import { useNavigate } from 'react-router-dom';
+import { Typography } from '@mui/material';
 
 function Login()
 {
@@ -26,10 +27,7 @@ function Login()
     return (
         <div className="login" >
             <div className="login__container">
-                <img
-                    src="https://a.slack-edge.com/80588/marketing/img/icons/icon_slack_hash_colored.png"
-                    alt=""
-                />
+                <Typography variant='h3' fontStyle='italic' color='Highlight'>Welcome to Blog App</Typography>
                 <Button onClick={signIn}>Sign in with Google</Button>
             </div>
         </div >
